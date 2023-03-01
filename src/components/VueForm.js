@@ -1,31 +1,37 @@
-import { h } from "vue";
-import { getComponent } from "./ComponentTypes";
-import { useLeadStore } from "../stores/LeadStore";
+import {h} from "vue";
+import {getComponent} from "./ComponentTypes";
+import {useLeadStore} from "../stores/LeadStore";
 
 const VueForm = (props) => {
-  // Setup empty store for form data
-  const store = useLeadStore();
+    // Setup empty store for form data
+    const store = useLeadStore();
 
-  props.formConfig.forEach((field) => {
-    switch (field.type) {
-      case "checkbox":
-        return (store.formData[field.name] = []);
-      case "radio":
-        return (store.formData[field.name] = "");
-      case "information":
-        break;
-      default:
-        return (store.formData[field.name] = "");
-    }
-  });
+    props.formConfig.forEach((field) => {
+        switch (field.type) {
+            case "checkbox":
+                return (store.formData[field.name] = []);
+            case "radio":
+                return (store.formData[field.name] = "");
+            case "select":
+                return (store.formData[field.name] = "")
+            case "text":
+                return (store.formData[field.name] = [])
+            case "tag":
+                return (store.formData[field.name] = [])
+            case "information":
+                break;
+            default:
+                return (store.formData[field.name] = "");
+        }
+    });
 
-  const formFields = props.formConfig.map((field) => {
-    let component = getComponent(field.type);
-    return { ...field, component };
-  });
+    const formFields = props.formConfig.map((field) => {
+        let component = getComponent(field.type);
+        return {...field, component};
+    });
 
-  // return the render function
-  return h(getComponent("formTemplate"), { formFields });
+    // return the render function
+    return h(getComponent("formTemplate"), {formFields});
 };
 
 export default VueForm;
