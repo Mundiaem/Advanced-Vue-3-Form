@@ -4,18 +4,17 @@ import { useValidation } from "./useValidation";
 
 export function useFormField(props) {
   const selectedValue = ref([]);
+    console.log("first * : ", selectedValue, props);
 
   /**
    * Validation Composable + Vuelidate
    */
   const { rules } = useValidation(props.field);
   const v$ = useVuelidate(rules, { selectedValue });
-
   /**
    * Inject
    */
   const { formState, validateField } = inject("vueform");
-
   onMounted(() => {
     // record initial error length
     formState.value.errorLength = v$.value.$silentErrors.length;
@@ -28,6 +27,8 @@ export function useFormField(props) {
    * when going `Back` to the previous form field
    * Check and set existing value if available
    */
+    console.log("Insert * : ", selectedValue, props);
+
   if (props.modelValue?.length > 0) selectedValue.value = props.modelValue;
 
   watch(v$, (v) => {

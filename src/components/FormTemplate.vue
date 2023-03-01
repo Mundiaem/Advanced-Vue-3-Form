@@ -18,6 +18,18 @@
               value: formData[field.name],
             })
           "
+            @keydown.enter="
+            addTag({
+              key: field.name,
+              value: formData[field.name],
+            })
+          "
+             @keydown.188="
+            addTag({
+              key: field.name,
+              value: formData[field.name],
+            })
+          "
         />
         <FieldError
           :button-text="field.buttonText"
@@ -80,7 +92,7 @@ function getFieldLabelMeta(key, field) {
 
 function getComponentFieldMeta(field) {
   return {
-    ...pick(field, ["name", "validation", "type", "text", "options", "label"]),
+    ...pick(field, ["name", "validation", "type", "text", "options", "label", "select"]),
   };
 }
 
@@ -89,10 +101,20 @@ provide("vueform", {
   validateField,
   formState,
 });
+const addTag= (payload)=>{
+      state.formData[payload.key].push(payload.value) ;
+
+    console.log("AddTag: ", payload);
+
+}
 
 // Pinia
 const store = useLeadStore();
 const updateField = (payload) => {
+  if(payload.key==='Strengths'){
+
+  }
+
   store.$patch((state) => {
     state.formData[payload.key] = payload.value;
   });
