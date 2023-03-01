@@ -1,6 +1,6 @@
 <template>
-  <div class='tag-input'>
-    <select class="form-control" v-model="selectedValue" @change="$emit('update:modelValue', selectedValue)"
+  <div style="width:200px;">
+    <select v-model="selectedValue" @change="$emit('update:modelValue', selectedValue)"
             :placeholder="$attrs['placeholder']"
     >
       <option value="">Select One</option>

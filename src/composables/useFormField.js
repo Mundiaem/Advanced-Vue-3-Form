@@ -4,7 +4,7 @@ import { useValidation } from "./useValidation";
 
 export function useFormField(props) {
   const selectedValue = ref([]);
-    console.log("first * : ", selectedValue, props);
+   // console.log("first * : ", selectedValue, props);
 
   /**
    * Validation Composable + Vuelidate
@@ -27,7 +27,7 @@ export function useFormField(props) {
    * when going `Back` to the previous form field
    * Check and set existing value if available
    */
-    console.log("Insert * : ", selectedValue, props);
+    //console.log("Insert * : ", selectedValue, props);
 
   if (props.modelValue?.length > 0) selectedValue.value = props.modelValue;
 
