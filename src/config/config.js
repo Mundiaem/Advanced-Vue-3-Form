@@ -93,7 +93,8 @@ export const formConfig = [
             },
         },
         validation: {
-            required: true,
+            required: false,
+
         },
     },
     {

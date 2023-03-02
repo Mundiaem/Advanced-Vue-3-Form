@@ -13,14 +13,13 @@
         @keydown.enter="addTag"
         @keydown.188="addTag"
         @change="$emit('update:modelValue',  props.modelValue)"
-
-
     /></div>
 
 </template>
 
 <script setup>
 import {useFormField} from "../../../composables/useFormField";
+import {getCurrentInstance} from "vue";
 
 defineEmits(["update:modelValue"]);
 
@@ -47,19 +46,24 @@ const props = defineProps({
   //   default: null,
   // },
 });
-const addTag = (event) => {
+const instance = getCurrentInstance();
+
+
+function addTag(event) {
   event.preventDefault()
   var val = event.target.value.trim()
   if (val.length > 0) {
     props.modelValue.push(val)
     event.target.value = ''
-    this.forceUpdate()
+    instance?.proxy?.$forceUpdate();
   }
-  console.log("Tag: ", val, " --- ", props.modelValue)
+  // console.log("Tag: ", val, " --- ", props.modelValue)
 }
-const removeTag = (index) => {
+
+function removeTag(index) {
   props.modelValue.splice(index, 1)
-  this.forceUpdate()
+instance?.proxy?.$forceUpdate();
 }
+
 const {selectedValue, vFocus} = useFormField(props);
 </script>
